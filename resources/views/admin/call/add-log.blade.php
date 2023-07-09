@@ -121,6 +121,16 @@
                                                 <option value="Already Postpaid">Already Postpaid</option>
                                                 <option value="Arabic">Arabic</option>
                                                 <option value="DNC">DNC</option>
+                                                <option value="Call Drop By Customer">Call Drop By Customer</option>
+                                                <option value="Line Busy">Line Busy</option>
+                                                <option value="Customer Disconnecting the Call">Customer Disconnecting the Call</option>
+                                                <option value="Happy with Prepaid">Happy with Prepaid</option>
+                                                <option value="Bad Experience with Du">Bad Experience with Du</option>
+                                                <option value="Not the Owner">Not the Owner</option>
+                                                <option value="Going on Vacation">Going on Vacation</option>
+                                                <option value="Low Usage">Low Usage</option>
+                                                <option value="Leaving Country">Low Usage</option>
+                                                <option value="Using Etisalat Prepaid">Using Etisalat Prepaid</option>
                                             </select>
                                         </div>
                                     </div>

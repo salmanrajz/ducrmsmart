@@ -2695,4 +2695,51 @@ class FunctionController extends Controller
             // echo $response;
         }
     }
+    //
+    public function CheckQuickPay(Request $request){
+
+        $number = $request->number;
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://myaccount.du.ae/servlet/ContentServer?pagename=MA_QuickPayRedirect&d=back&MSISDN=971528452760&rechargeType=10&requestType=customerinfo&msisdnSource=971528452760',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => array(
+                'Access-Control-Allow-Origin:  *',
+                'Cache-Control:  private',
+                'Connection:  Keep-Alive',
+                'Content-Encoding:  gzip',
+                'Content-Type:  text/html; charset=UTF-8',
+                'Date:  Tue, 07 Mar 2023 20:13:39 GMT',
+                'device_type:  front',
+                'HOST_SERVICE:  FutureTenseContentServer:11.1.1.8.0',
+                'Keep-Alive:  timeout=5, max=115',
+                'P3P:  CP="NON DSP COR CURa TIA"',
+                'Server:  Apache',
+                'Set-Cookie:  ADRUM_BTa="ENCAAAAAAWKfxU0xqdf4+O5SvXe7QV9FAgjXu6RbQZCxuNnybzbtZd7XBnPPqapVsnGIHB3vxvZULwgCS6FmtqybU9+UnC7OukvXP6ht82TuMW99ZvQnZ/ppieKOgCPda6dKujop7xcFxs4D51VR/8v9lRbaFyEd8LkZAm3oPQqPKY+T66HxXu26f4OrOfOdkHUQoDusA8="; Expires=Tue, 07-Mar-2023 20:14:10 GMT; Path=/; Secure; HttpOnly',
+                'Set-Cookie:  SameSite="ENCAAAAAAXfSt6FNqZZZR5NM9+8gu6PWc0BVEmwPh7p6J6AXimYvoNH/JUhAqIrTUcQNskK8MM="; Expires=Tue, 07-Mar-2023 20:14:10 GMT; Path=/; Secure; HttpOnly',
+                'Set-Cookie:  ADRUM_BT1="ENCAAAAAAVuEKsbJvLZt7HJBxjvM4vT0ATwpVn/MVx7Ujftg24y1oEulwBRdF+O8yh/6SDHVNvpPRBhSMRg0yJ8QSX5A0lp"; Expires=Tue, 07-Mar-2023 20:14:10 GMT; Path=/; Secure; HttpOnly',
+                'Set-Cookie:  NSC_TFMGDBSF_TTM_443="ENCAAAAAAVahtIZo1CoNdLBJAVDs9wQYE6fz9p3mUG1JxYZyzrdcUmi68Q6HRYV/+92PpmTLBnYO+JQP21yejavK+Jxs1jzGvO3+RtU2sGA2MkWSb1kDU3jwodq66LXxNAQBNDPlQaCegM8OAJSTlTbd+bOIhPt"; Expires=Tue, 07-Mar-2023 20:15:40 GMT; Path=/; Secure; HttpOnly',
+                'Vary:  Accept-Encoding,User-Agent',
+                'WWW-Authenticate:  Basic realm="CT"',
+                'X-Content-Type-Options:  nosniff',
+                'X-Frame-Options:  SAMEORIGIN',
+                'x-frame-options:  SAMEORIGIN',
+                'X-Permitted-Cross-Domain-Policies:  none',
+                'X-XSS-Protection:  1; mode=block',
+                'Cookie: JSESSIONID="ENCAAAAAAU0FAdUfI9OWeMQlV49JqKSCtx730pbK7Q9W9xvLzMvACylxb97vaHaEP9+exaxzibkwYIzICZ2ycFPVCMgKzi5AgaNnr+ICDteE/XTnEOLQLEjT/boXV4PCsUqINc16T/13aUxE8CMgBZonKPOxW0P"; NSC_TFMGDBSF_TTM_443="ENCAAAAAAV59wgLAZgqOtCrDDSpfRZJY3fYrm0ex00Q6PxNLQw25W2u/EudtYNBd8OVyqSVrYHtkQK8eTyCnhwrpSZkP+/X1nzhD/QnVYmQXumzdoAysHGDsObPO2od4Vn+4kpftdL5KuJFMMD+cqbKVWDiSmbz"'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
 }

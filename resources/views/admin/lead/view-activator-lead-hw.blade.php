@@ -303,9 +303,24 @@
                                 <option value="7">7</option>
                                 <option value="17">17</option>
                             </select>
-                            {{-- <input type="date" name="billing_cycle" id="billing_cycle" class="form-control" --}}
-                                {{-- value="{{ $data->bi }}" autocomplete="false" --}}
-                                {{-- > --}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Billing Date</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="date" name="billing_date" id="billing_date" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Sim Number</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="tel" name="sim_number" id="sim_number" class="form-control">
                         </div>
                     </div>
                 </div>

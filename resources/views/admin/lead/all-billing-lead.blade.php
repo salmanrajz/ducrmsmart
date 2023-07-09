@@ -26,6 +26,7 @@
               <th>S#</th>
               <th>Name</th>
               <th>Cust Num</th>
+              <th>Lang</th>
               <th>Plan</th>
               <th>5G Number | Activated Number</th>
               <th>Contract ID</th>
@@ -37,10 +38,13 @@
           </thead>
           <tbody>
             @foreach ($data as $key => $item)
+            <form class="form-horizontal form-label-left input_mask" method="post"
+                                autocomplete="off" id="billing_log_{{$key}}" onsubmit="return false">
                 <tr>
                     <td>{{++$key}}</td>
                     <td>{{$item->customer_name}}</td>
                     <td>{{$item->customer_number}}</td>
+                    <td>{{$item->language}}</td>
                     <td>{{$item->plan_name}}</td>
                     {{-- <td>{{$item->email}}</td> --}}
                     <td>
@@ -49,7 +53,7 @@
                         echo str_replace(' ','',$item->work_order_num);
                         @endphp
                     </td>
-                    <td>{{$item->contract_id}}</td>
+                    <td>{{$item->contract_id}} - {{$item->account_id}}</td>
                     <td>{{$item->billing_cycle}}</td>
                     {{-- <td>{{$item->status}}</td> --}}
                     <td width="20%">
@@ -81,9 +85,12 @@
                             {{-- @endif --}}
                     </td>
                     <td>
-                        <button class="btn btn-secondary" id="BtnStatus_{{$key}}" disabled>Submit</button>
+                        <button class="btn btn-secondary" id="BtnStatus_{{$key}}" disabled
+                        onclick="CallLogForm('{{$item->id}}','billing_log_{{$key}}','{{route('AttemptBilling')}}')"
+                        >Submit</button>
                     </td>
                 </tr>
+            </form>
             @endforeach
           </tbody>
         </table>
@@ -181,6 +188,8 @@
 @endsection
 @section('page-script')
   {{-- Page js files --}}
+<script src="{{ asset(mix('js/custom.js')) }}"></script>
+
 <script>
 $(document).ready(function () {
     $('#pdf').DataTable({

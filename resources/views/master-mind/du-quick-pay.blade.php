@@ -23,21 +23,28 @@
         <div class="row">
             <div class="col-4">
                 <div class="mb-1">
-                    <label class="form-label" for="first-name-icon">Users Contact #</label>
+                    <label class="form-label" for="number">Users Contact #</label>
                     <div class="input-group input-group-merge">
                         <span class="input-group-text"><i data-feather="user"></i></span>
                         <input type="tel" maxlength="12"
                             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            onkeypress="return isNumberKey(event) " id="first-name-icon" class="form-control"
-                            name="contact_number" placeholder="971522221220" required />
+                            onkeypress="return isNumberKey(event) " id="number" class="form-control"
+                            name="number" placeholder="971522221220" required />
                     </div>
                 </div>
             </div>
 
         </div>
+        <div class="col-4">
+            <div class="mb1">
+                <div id="results">
+                    Result
+                </div>
+            </div>
+        </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary me-1"
-                onclick="QuickPayChecker('{{ route('NewLeadSubmit') }}', 'MyRoleForm','{{ route('wifi.leads') }}')">Submit</button>
+                onclick="QuickPayChecker('{{ route('CheckQuickPay')}}')">Submit</button>
         </div>
         <!-- Modal to add new record -->
 
@@ -82,6 +89,7 @@
     @endsection
     @section('page-script')
     {{-- Page js files --}}
+<script src="{{ asset(mix('js/custom.js')) }}"></script>
 
     {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-basic.js')) }}">
     </script> --}}

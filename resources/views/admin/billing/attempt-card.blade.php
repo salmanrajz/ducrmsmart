@@ -19,9 +19,12 @@
   <div class="row">
     <div class="col-12">
         {{-- @foreach ($numberOfAgent as $item) --}}
-            <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">Attempt 1</button>
-            <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">Attempt 2</button>
-            <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">Attempt 3</button>
+            {{-- <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">Attempt 1</button> --}}
+            {{-- <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">Attempt 2</button> --}}
+            {{-- <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">Attempt 3</button> --}}
+            <button onclick="window.location.href='{{route('TodayBilling')}}'" class="btn btn-success">BC-01</button>
+            <button onclick="window.location.href='{{route('TodayBilling')}}'" class="btn btn-success">BC-07</button>
+            <button onclick="window.location.href='{{route('TodayBilling')}}'" class="btn btn-success">BC-17</button>
             <button onclick="window.location.href='{{route('AttemptView')}}'" class="btn btn-success">90 Days Activation</button>
         {{-- @endforeach --}}
     </div>

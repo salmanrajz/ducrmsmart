@@ -83,12 +83,17 @@ class ActivationController extends Controller
             ], ['link' => "javascript:void(0)", 'name' => "Activate Lead HW"]
         ];
         //
-        $data = lead_sale::select('lead_sales.customer_name', 'lead_sales.id', 'lead_sales.email', 'lead_sales.customer_number', 'status_codes.status_name as status', 'home_wifi_plans.name as plan_name', 'lead_sales.lead_no','lead_sales.reff_id as work_order_num')
-            ->whereIn('lead_type', ['HomeWifi'])
+        $data = lead_sale::select('lead_sales.customer_name', 'lead_sales.id', 'lead_sales.email', 'lead_sales.customer_number', 'status_codes.status_name as status', 'plans.plan_name', 'lead_sales.lead_no','lead_sales.reff_id as work_order_num')
+            ->whereIn('lead_type', ['New','P2P','MNP'])
             // ->where('lead_type','HomeWifi')
+            // ->Join(
+            //     'home_wifi_plans',
+            //     'home_wifi_plans.id',
+            //     'lead_sales.plans'
+            // )
             ->Join(
-                'home_wifi_plans',
-                'home_wifi_plans.id',
+                'plans',
+                'plans.id',
                 'lead_sales.plans'
             )
             ->Join(
@@ -98,6 +103,7 @@ class ActivationController extends Controller
             )
             ->where('lead_sales.status', '1.02')
             ->whereNull('billing_cycle')
+            ->whereBetween('lead_sales.created_at', [Carbon::now()->subMonth(3), Carbon::now()])
             ->get();
 
         return view('admin.lead.all-activator-lead-hw', compact('data','breadcrumbs'));
@@ -210,12 +216,12 @@ class ActivationController extends Controller
     public function contract_id_lead_hw(Request $request)
     {
         // $role =
-        $data = lead_sale::select('lead_sales.customer_name', 'lead_sales.id', 'lead_sales.email', 'lead_sales.customer_number', 'status_codes.status_name as status', 'home_wifi_plans.name as plan_name', 'lead_sales.lead_no', 'lead_sales.emirate_id', 'lead_sales.nationality', 'lead_sales.dob', 'lead_sales.emirate_expiry', 'lead_sales.emirate', 'lead_sales.additional_docs_name', 'lead_sales.front_id', 'lead_sales.back_id','lead_sales.lead_type', 'lead_sales.reff_id as work_order_num', 'lead_sales.work_order_num as reff_id')
-            ->whereIn('lead_type', ['HomeWifi'])
+        $data = lead_sale::select('lead_sales.customer_name', 'lead_sales.id', 'lead_sales.email', 'lead_sales.customer_number', 'status_codes.status_name as status', 'plans.plan_name', 'lead_sales.lead_no', 'lead_sales.emirate_id', 'lead_sales.nationality', 'lead_sales.dob', 'lead_sales.emirate_expiry', 'lead_sales.emirate', 'lead_sales.additional_docs_name', 'lead_sales.front_id', 'lead_sales.back_id','lead_sales.lead_type', 'lead_sales.reff_id as work_order_num', 'lead_sales.work_order_num as reff_id')
+            // ->whereIn('lead_type', ['P2P'])
             // ->where('lead_type','HomeWifi')
             ->Join(
-                'home_wifi_plans',
-                'home_wifi_plans.id',
+                'plans',
+                'plans.id',
                 'lead_sales.plans'
             )
             ->Join(
@@ -321,6 +327,11 @@ class ActivationController extends Controller
         $ld->shipment = $request->shipment;
         $ld->omid = $request->omid;
         $ld->process_screenshot = $activation_screenshot;
+        $ld->contract_id = $request->contract_id;
+        $ld->billing_cycle = $request->billing_cycle;
+        $ld->account_id = $request->account_id;
+        $ld->billing_date = $request->billing_date;
+        $ld->sim_number = $request->sim_number;
         $ld->status = '1.11';
         $ld->save();
         //
@@ -357,6 +368,9 @@ class ActivationController extends Controller
             'number' => $lead->numbers,
             'plan' => $lead->plan_name,
             'sim_type' => $lead->lead_type,
+            'contract_id' => $request->contract_id,
+            'billing_cycle' => $request->billing_cycle,
+            'account_id' => $request->account_id,
             // 'Plan' => $number,
             // 'AlternativeNumber' => $alternativeNumber,
         ];
@@ -413,6 +427,11 @@ class ActivationController extends Controller
         $ld->activation_screenshot = $activation_screenshot;
         $ld->status = '1.02';
         $ld->channel_partner = $request->channel_partner;
+        $ld->contract_id = $request->contract_id;
+        $ld->billing_cycle = $request->billing_cycle;
+        $ld->account_id = $request->account_id;
+        $ld->billing_date = $request->billing_date;
+        $ld->sim_number = $request->sim_number;
         $ld->save();
         //
         $data = ActivationForm::create(['lead_id' => $request->lead_id,
@@ -447,6 +466,12 @@ class ActivationController extends Controller
             'omid' => $ld->omid,
             'status' => '1.02',
             'channel_partner' => $request->channel_partner,
+            'contract_id' => $request->contract_id,
+            'billing_cycle' => $request->billing_cycle,
+            'account_id' => $request->account_id,
+            'billing_date' => $request->billing_date,
+            'sim_number' => $request->sim_number,
+
         ]);
         $lead = lead_sale::select('lead_sales.id', 'lead_sales.lead_no', 'lead_sales.customer_name', 'lead_sales.customer_number', 'plans.plan_name', 'lead_sales.saler_name', 'lead_sales.lead_type', 'call_centers.numbers')
         ->Join(
@@ -535,6 +560,11 @@ class ActivationController extends Controller
         $ld->activation_screenshot = $activation_screenshot;
         $ld->status = '1.02';
         $ld->channel_partner = 'Vocus';
+        $ld->contract_id = $request->contract_id;
+        $ld->billing_cycle = $request->billing_cycle;
+        $ld->account_id = $request->account_id;
+        $ld->billing_date = $request->billing_date;
+        $ld->sim_number = $request->sim_number;
         $ld->save();
         //
         $data = ActivationForm::create(['lead_id' => $request->lead_id,
@@ -569,6 +599,11 @@ class ActivationController extends Controller
             'omid' => $ld->omid,
             'status' => '1.02',
             'channel_partner' => 'Vocus',
+            'contract_id' => $request->contract_id,
+            'billing_cycle' => $request->billing_cycle,
+            'account_id' => $request->account_id,
+            'billing_date' => $request->billing_date,
+            'sim_number' => $request->sim_number,
         ]);
         $lead = lead_sale::select('lead_sales.id', 'lead_sales.lead_no', 'lead_sales.customer_name', 'lead_sales.customer_number', 'plans.plan_name', 'lead_sales.saler_name', 'lead_sales.lead_type', 'call_centers.numbers')
         ->Join(
@@ -659,10 +694,12 @@ class ActivationController extends Controller
         // $ld->shipment = $request->shipment;
         // $ld->omid = $request->omid;
         $ld->activation_screenshot = $activation_screenshot;
-        $ld->contract_id = $request->contract_id;
         $ld->work_order_num = $request->reff_id;
+        $ld->contract_id = $request->contract_id;
         $ld->billing_cycle = $request->billing_cycle;
         $ld->account_id = $request->account_id;
+        $ld->billing_date = $request->billing_date;
+        $ld->sim_number = $request->sim_number;
         $ld->status = '1.02';
         $ld->save();
         //
@@ -695,10 +732,12 @@ class ActivationController extends Controller
             'additional_docs_photo' => $ld->additional_docs_photo,
             'additional_docs_name' => $ld->additional_docs_name,
             'activation_screenshot' => $ld->activation_screenshot,
-            'contract_id' => $request->contract_id,
             'reff_id' => $request->reff_id,
+            'contract_id' => $request->contract_id,
             'billing_cycle' => $request->billing_cycle,
             'account_id' => $request->account_id,
+            'billing_date' => $request->billing_date,
+            'sim_number' => $request->sim_number,
             // 'omid' => $ld->omid,
             'status' => '1.02',
         ]);
@@ -757,8 +796,10 @@ class ActivationController extends Controller
             // 'contract_id' => 'required',
             'contract_id' => 'required',
             'account_id' => 'required',
-            'reff_id' => 'required',
+            // 'reff_id' => 'required',
             'billing_cycle' => 'required',
+            'sim_number' => 'required',
+            'billing_date' => 'required',
         ]);
         if ($validatedData->fails()) {
             return response()->json(['error' => $validatedData->errors()->all()]);
@@ -791,9 +832,11 @@ class ActivationController extends Controller
         // $ld->shipment = $request->shipment;
         // $ld->omid = $request->omid;
         $ld->contract_id = $request->contract_id;
-        $ld->reff_id = $request->reff_id;
+        // $ld->reff_id = $request->reff_id;
         $ld->account_id = $request->account_id;
         $ld->billing_cycle = $request->billing_cycle;
+        $ld->billing_date = $request->billing_date;
+        $ld->sim_number = $request->sim_number;
         // $ld->status = '1.02';
         $ld->save();
         //

@@ -878,14 +878,21 @@ window.ClearDuplicate = function (id,url) {
        });
 
 }
-window.QuickPayChecker = function (id,url) {
-       console.log(id);
+//
+window.isNumberKey=function(evt) {
+    var t = (evt.which) ? evt.which : event.keyCode;
+    return !(t > 31 && (t < 48 || t > 57))
+}
+//
+window.QuickPayChecker = function (url) {
+    //    console.log(id);
        // $("#dpExist").show();
+       var number = $("#number").val();
        $.ajax({
            type: "POST",
            url: url,
            data: {
-               id: id,
+               number: number,
             //    data:data,
            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
            // contentType: false, // The content type used when sending data to the server.
@@ -896,15 +903,13 @@ window.QuickPayChecker = function (id,url) {
            },
            beforeSend: function () {
                // $("#loading_num2").show();
-           },
-           success: function (msg) {
-               // alert(msg);
-            if(msg == 1){
-                   alert(msg);
-                // window.location.reload();
-            }else{
-                alert("Do Contact IT Team");
-            }
+               $("#results").html('<p>Loading Wait</p>');
+            $('.waves-button-input').prop('disabled', true);
+        },
+        success: function (msg) {
+            // alert(msg);
+            $("#results").html(msg);
+            $('.waves-button-input').prop('disabled', false);
             // window.location.reload();
             // window.open(msg.success, '_blank');
             // window.location.href = msg.success;

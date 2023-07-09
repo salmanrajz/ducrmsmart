@@ -250,6 +250,9 @@
                             </div>
                         </div>
                     </div>
+                    {{--  --}}
+
+                    {{--  --}}
                     <div class="col-12">
                         <div class="mb-1">
                             <label class="form-label" for="first-name-icon">Channel Partner</label>
@@ -350,6 +353,51 @@
                     </div>
                     @endif
 
+                     <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Contract ID</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="text" name="contract_id" id="contract_id" class="form-control"
+                                value="{{ $data->contract_id }}" autocomplete="false">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Account ID</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="text" name="account_id" id="account_id" class="form-control"
+                                value="{{ $data->account_id }}" autocomplete="false">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Billing Cycle</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <select name="billing_cycle" id="billing_cycle" class="form-control">
+                                <option value="1">1</option>
+                                <option value="7">7</option>
+                                <option value="17">17</option>
+                            </select>
+                            {{-- <input type="date" name="billing_cycle" id="billing_cycle" class="form-control" --}}
+                                {{-- value="{{ $data->bi }}" autocomplete="false" --}}
+                                {{-- > --}}
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Billing Date</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="date" name="billing_date" id="billing_date" class="form-control">
+                        </div>
+                    </div>
+                </div>
                         <input type="hidden" name="leadid" value="{{ $data->id }}">
 
                 {{-- IMO END --}}

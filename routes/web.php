@@ -461,6 +461,7 @@ Route::get('MyGame', [ImportExcelController::class, 'MyGame'])->name('MyGame');
 Route::get('ExportHW', [ReportController::class, 'ExportHW'])->name('ExportHW');
 Route::get('ShareStatus', [FunctionController::class, 'ShareStatus'])->name('ShareStatus');
 Route::get('DuQuickPay', [MasterMindController::class, 'DuQuickPay'])->name('DuQuickPay')->middleware('auth');
+Route::post('CheckQuickPay', [FunctionController::class, 'CheckQuickPay'])->name('CheckQuickPay')->middleware('auth');
 // Route::get('ExportHW', [ImportExcelController::class, 'ExportHW'])->name('ExportHW');
 // Route::post('customer-feedbac-submit', 'NumberController@submit_feedback_number')->name('number.feedback.submit')->middleware('auth');
 
@@ -484,6 +485,7 @@ Route::group(['prefix' => 'billing','middleware'=>'auth'], function () {
     Route::get('attempt-view', [BillingController::class, 'AttemptView'])->name('AttemptView');
     Route::get('today-billing', [BillingController::class, 'TodayBilling'])->name('TodayBilling');
     Route::get('view-billing-leads/{id}', [BillingController::class, 'billing_cycle_view'])->name('billing_cycle_view');
+    Route::post('attempt-billing', [BillingController::class, 'AttemptBilling'])->name('AttemptBilling');
     // Route::get('total-prefix-mind/{slug}', [BillingController::class, 'TotalPrefixSlug'])->name('TotalPrefixSlug');
 
 });

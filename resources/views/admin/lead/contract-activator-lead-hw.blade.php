@@ -274,7 +274,25 @@
                         </div>
                     </div>
                 </div>
+                                <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Billing Date</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="date" name="billing_date" id="billing_date" class="form-control">
+                        </div>
+                    </div>
+                </div>
                 <div class="col-8">
+                    <div class="mb-1">
+                        <label class="form-label" for="first-name-icon">Sim Number</label>
+                        <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i data-feather="user"></i></span>
+                            <input type="tel" name="sim_number" id="sim_number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="col-8">
                     <div class="mb-1">
                         <label class="form-label" for="first-name-icon">5G Number</label>
                         <div class="input-group input-group-merge">
@@ -283,94 +301,8 @@
                                 value="{{ $data->reff_id }}" autocomplete="false">
                         </div>
                     </div>
-                </div>
-                {{-- <div class="col-8">
-                    <div class="mb-1">
-                        <label class="form-label" for="first-name-icon">Remarks</label>
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i data-feather="user"></i></span>
-                            <input type="text" name="remarks" id="remarks" class="form-control"
-                                value="{{ $data->remarks }}" autocomplete="false">
-                        </div>
-                    </div>
-
                 </div> --}}
-                @if($data->lead_type == 'P2P')
-                    <div class="col-12">
-                        <div class="mb-1">
-                            <label class="form-label" for="first-name-icon">OMID ID#</label>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i data-feather="user"></i></span>
-                                <input type="text" name="omid" id="omid" class="form-control" value=""
-                                    autocomplete="false">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="mb-1">
-                            <label class="form-label" for="first-name-icon">Activation Screenshot:</label>
-                            <div class="input-group input-group-merge">
-                                <input type="file" name="activation_screenshot" id="additional_documents"
-                                    class="form-control" accept="image/*">
 
-                                </h3>
-                            </div>
-                            <img id="myImg3"
-                                src="{{ env('CDN_URL') }}/documents/{{ $data->additional_docs }}"
-                                alt="your image" style="width:25%" onerror="this.style.display='none'" />
-                        </div>
-                    </div>
-                @elseif($data->lead_type == 'HomeWifi')
-                    {{-- <div class="col-12">
-                        <div class="mb-1">
-                            <label class="form-label" for="first-name-icon">Activation Screenshot:</label>
-                            <div class="input-group input-group-merge">
-                                <input type="file" name="activation_screenshot" id="additional_documents"
-                                    class="form-control" accept="image/*">
-
-                                </h3>
-                            </div>
-                            <img id="myImg3"
-                                src="{{ env('CDN_URL') }}/documents/{{ $data->additional_docs }}"
-                                alt="your image" style="width:25%" onerror="this.style.display='none'" />
-                        </div>
-                    </div> --}}
-                @else
-                    <div class="col-12">
-                        <div class="mb-1">
-                            <label class="form-label" for="first-name-icon">OMID ID#</label>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i data-feather="user"></i></span>
-                                <input type="text" name="omid" id="omid" class="form-control" value=""
-                                    autocomplete="false">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="mb-1">
-                            <label class="form-label" for="first-name-icon">Shipment ID #</label>
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i data-feather="user"></i></span>
-                                <input type="text" name="shipment" id="shipment" class="form-control" value=""
-                                    autocomplete="false">
-                            </div>
-                        </div>
-                    </div>
-                     <div class="col-12">
-                        <div class="mb-1">
-                            <label class="form-label" for="first-name-icon">Process Screenshot:</label>
-                            <div class="input-group input-group-merge">
-                                <input type="file" name="process_screenshot" id="additional_documents"
-                                    class="form-control" accept="image/*">
-
-                                </h3>
-                            </div>
-                            <img id="myImg3"
-                                src=""
-                                alt="your image" style="width:25%" onerror="this.style.display='none'" />
-                        </div>
-                    </div>
-                    @endif
 
                         <input type="hidden" name="leadid" id="leadid" value="{{ $data->id }}">
                         <input type="hidden" name="id" id="id" value="{{ $data->id }}">
@@ -389,7 +321,7 @@
                 <div class="col-12">
                     @if($data->lead_type == 'P2P')
                     <button type="submit" class="btn btn-primary me-1"
-                    onclick="SavingActivationLead('{{ route('proceed.p2p') }}', 'MyRoleForm','{{ route('home') }}')">Submit
+                    onclick="SavingActivationLead('{{ route('contract_id.hw') }}', 'MyRoleForm','{{ route('home') }}')">Submit
                     For Activation</button>
                     @elseif($data->lead_type == 'HomeWifi')
                     <button type="submit" class="btn btn-primary me-1"
@@ -397,7 +329,7 @@
                     For Activation</button>
                     @else
                     <button type="submit" class="btn btn-primary me-1"
-                    onclick="SavingActivationLead('{{ route('proceed.mnp') }}', 'MyRoleForm','{{ route('home') }}')">Submit
+                    onclick="SavingActivationLead('{{ route('contract_id.hw') }}', 'MyRoleForm','{{ route('home') }}')">Submit
                     For Pre Process</button>
                     @endif
                     <button type="button" class="btn btn-danger me-1"

@@ -40,7 +40,21 @@ class BillingController extends Controller
         // $today = Carbon::createFromFormat('d/m/Y H:i:s',  '19/02/2019 00:00:00');
         // $today = Carbon
         $dt = Carbon::now();
-        $mdt = $dt->format('d');
+         $mdt = $dt->format('d');
+         $dm =  str_replace('0', '', $mdt);
+        //  $dm = 19;
+        // return $dm;
+         if($dm <= 7){
+            // return "First Bill Date";
+            $billing_cycle = 1;
+        }
+        else if($dm >= 7 && $dm <= 16){
+             $billing_cycle = 7;
+             // return "Second Bill Date";
+            }else{
+                $billing_cycle = 17;
+                // return "third bill";
+         }
 
         $breadcrumbs = [
             [
@@ -49,7 +63,7 @@ class BillingController extends Controller
         ];
         // echo $dt->toDateString();
         // return $mdt;
-        $data = lead_sale::select('lead_sales.customer_name', 'lead_sales.id', 'lead_sales.email', 'lead_sales.customer_number', 'status_codes.status_name as status', 'home_wifi_plans.name as plan_name', 'lead_sales.lead_no', 'lead_sales.work_order_num','lead_sales.billing_cycle','lead_sales.contract_id')
+       $data = lead_sale::select('lead_sales.customer_name', 'lead_sales.id', 'lead_sales.email', 'lead_sales.customer_number', 'status_codes.status_name as status', 'home_wifi_plans.name as plan_name', 'lead_sales.lead_no', 'lead_sales.work_order_num','lead_sales.billing_cycle','lead_sales.contract_id','lead_sales.language','lead_sales.account_id')
         ->whereIn('lead_type', ['HomeWifi'])
             // ->where('lead_type','HomeWifi')
             ->Join(
@@ -68,7 +82,7 @@ class BillingController extends Controller
             // ->where('billing_cycle',$mdt)
             ->where('lead_sales.status', '1.02')
             ->whereMonth('lead_sales.updated_at', Carbon::now()->submonth())
-            ->where('lead_sales.billing_cycle','<',str_replace('0','',$mdt))
+            ->where('lead_sales.billing_cycle',$billing_cycle)
             ->whereYear('lead_sales.updated_at', Carbon::now()->year)
 
             ->get();

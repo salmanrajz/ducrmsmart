@@ -191,11 +191,11 @@ class ReportController extends Controller
         $zp = main_data_user_assigner::where('status','No Answer')
                 //  $zp = main_data_user_assigner::whereNull('status')
                 // ->whereDate('updated_at', Carbon::yesterday())
-                // ->whereBetween(
-                    // 'updated_at',
-                    // [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
-                // )
-                ->whereMonth('created_at', Carbon::now()->submonth())
+                ->whereBetween(
+                    'created_at',
+                    [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
+                )
+                // ->whereMonth('created_at', Carbon::now()->submonth())
                 // ->whereBetween(
                 // 'updated_at',
                 //     [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()]
